@@ -32,4 +32,14 @@ public class MemberEntity {
         memberEntity.setMemberName(memberDTO.getMemberName());
         return memberEntity;
     }
+
+    public static MemberEntity toUpdateMemberEntity(MemberDTO memberDTO) {
+        MemberEntity memberEntity = new MemberEntity();
+        //ID는 회원가입할 때 결정되는 사항이 아니다. 가입하고 자동부여이기 때문에 update 시 id값이 필요하다.
+        memberEntity.setId(memberDTO.getId());
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());//DTO에 담긴걸 Entity 객체로 넘김
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        return memberEntity;
+    }
 }
