@@ -5,10 +5,7 @@ import com.app.kms.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Member;
@@ -84,5 +81,26 @@ public class MemberController {
         memberService.update(memberDTO);
         //controller메소드가 처리가 끝나고 다시 다른 컨트롤러 메소드 요청 : redirect
         return "redirect:/member/" + memberDTO.getId(); //내 정보 수정 후 수정 완료된 상세 페이지 띄우기
+    }
+
+    @GetMapping("/member/delete/{id}")
+    public String deleteById(@PathVariable Long id){
+        memberService.deleteById(id);
+
+        return "redirect:/member/";
+    }
+
+    @GetMapping("/member/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "index";
+    }
+
+    @PostMapping("/member/email-check")
+    //Ajax 사용 시 ResponseBody 사용
+    public @ResponseBody String emailCheck(@RequestParam("memberEmail") String memberEmail){
+        System.out.println("memberEmail = " + memberEmail);
+        String checkResult = memberService.emailCheck(memberEmail);
+        return checkResult;
     }
 }
