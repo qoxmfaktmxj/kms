@@ -85,4 +85,19 @@ public class MemberService {
         //save 메서드는 id가 없으면 insert 있으면 update 쿼리 날려 줍니다.
         memberRepository.save(MemberEntity.toUpdateMemberEntity(memberDTO));
     }
+
+    public void deleteById(Long id) {
+        memberRepository.deleteById(id);
+    }
+
+    public String emailCheck(String memberEmail) {
+        Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberEmail);
+        if (byMemberEmail.isPresent()){
+            //조회 결과가 있다 -> 사용할 수 없다.
+            return null;
+        } else {
+            //없다 -> 사용 가능
+            return "ok";
+        }
+    }
 }
