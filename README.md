@@ -1,6 +1,6 @@
 # kms
 ### ver 1.0
-- Spring Boot 2.6.13
+- Spring Boot 2.7.13
 - JDK 11
 - MySql
 - Spring Data JPA
